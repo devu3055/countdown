@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10090f">
+  <title>For Heet ♡ | Birthday Countdown</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #10090f;
+      --pink: #ff78a6;
+      --pink-light: #ffc0d3;
+      --cream: #fff0e8;
+      --muted: #b9a6b1;
+      --border: rgba(255, 190, 215, 0.18);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--cream);
+      background:
+        radial-gradient(ellipse at 50% 20%, #321725 0%, transparent 43%),
+        radial-gradient(ellipse at 10% 80%, #1e101a 0%, transparent 40%),
+        var(--bg);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Starry background */
+    #stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      color: #ff8bb5;
+      opacity: 0.5;
+      animation: twinkle 3s ease-in-out infinite alternate;
+    }
+
+    .star.dot {
+      width: 2px;
+      height: 2px;
+      background: #ffe5ed;
+      border-radius: 50%;
+    }
+
+    .star.heart {
+      font-size: 14px;
+    }
+
+    .star.sparkle {
+      font-size: 23px;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.12;
+        transform: scale(0.8) rotate(0deg);
+      }
+      to {
+        opacity: 0.75;
+        transform: scale(1.15) rotate(20deg);
+      }
+    }
+
+    /* Main section */
+    .section {
+      min-height: 100vh;
+      padding: 0 24px 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .birthday-card {
+      width: 100%;
+      max-width: 914px;
+      min-height: 748px;
+      padding: 75px 65px 55px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(39, 20, 32, 0.73),
+          rgba(16, 10, 17, 0.88)
+        );
+      box-shadow:
+        0 25px 100px rgba(0, 0, 0, 0.2),
+        inset 0 0 60px rgba(255, 130, 170, 0.025);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .birthday-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        ellipse at 50% 0%,
+        rgba(255, 120, 166, 0.06),
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    .cake {
+      font-size: 56px;
+      line-height: 1.2;
+      margin-bottom: 22px;
+      position: relative;
+      animation: cakeFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes cakeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pink-light);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(55px, 7.3vw, 100px);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -3px;
+      color: var(--cream);
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    .birth-year {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(52px, 6vw, 76px);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--pink);
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      margin-top: 3px;
+    }
+
+    /* Decorative divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 690px;
+      margin: 46px auto 42px;
+    }
+
+    .divider span {
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 190, 215, 0.2)
+      );
+    }
+
+    .divider span:last-child {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 190, 215, 0.2),
+        transparent
+      );
+    }
+
+    .divider-heart {
+      color: var(--pink);
+      font-size: 15px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .time-box {
+      min-width: 0;
+      position: relative;
+    }
+
+    .time-box strong {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(42px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+      color: var(--cream);
+      transition: color 0.3s ease;
+    }
+
+    .time-box small {
+      display: block;
+      margin-top: 16px;
+      color: #99818e;
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .birthday-message {
+      min-height: 25px;
+      margin-top: 30px;
+      color: var(--pink-light);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.8;
+    }
+
+    .bottom-sparkle {
+      margin-top: 29px;
+      font-size: 15px;
+      color: var(--pink);
+      animation: twinkle 2s infinite alternate;
+    }
+
+    /* Music control */
+    .music-button {
+      position: fixed;
+      right: 26px;
+      bottom: 24px;
+      z-index: 5;
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: rgba(24, 14, 23, 0.9);
+      color: var(--pink-light);
+      font-size: 23px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .music-button:hover {
+      border-color: var(--pink);
+      background: #351a2b;
+      transform: scale(1.08);
+    }
+
+    .music-button.playing {
+      box-shadow: 0 0 22px rgba(255, 120, 166, 0.2);
+      animation: musicPulse 1.5s infinite;
+    }
+
+    @keyframes musicPulse {
+      50% {
+        box-shadow: 0 0 28px rgba(255, 120, 166, 0.45);
+      }
+    }
+
+    /* Birthday celebration */
+    .celebrating .birthday-card {
+      border-color: rgba(255, 120, 166, 0.4);
+    }
+
+    .celebrating .cake {
+      animation: cakeFloat 1s infinite;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      z-index: 10;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive design */
+    @media (max-width: 700px) {
+      .section {
+        padding: 20px 14px 80px;
+        min-height: 100svh;
+      }
+
+      .birthday-card {
+        min-height: auto;
+        padding: 58px 20px 35px;
+        border-radius: 28px;
+      }
+
+      .cake {
+        font-size: 48px;
+        margin-bottom: 22px;
+      }
+
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
+      h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .birth-year {
+        margin-top: 8px;
+      }
+
+      .description {
+        font-size: 13px;
+      }
+
+      .divider {
+        gap: 10px;
+        margin: 34px auto 32px;
+      }
+
+      .countdown {
+        gap: 6px;
+      }
+
+      .time-box strong {
+        font-size: clamp(34px, 10vw, 48px);
+      }
+
+      .time-box small {
+        font-size: 8px;
+        letter-spacing: 1px;
+        margin-top: 12px;
+      }
+
+      .birthday-message {
+        margin-top: 27px;
+        font-size: 12px;
+      }
+
+      .bottom-sparkle {
+        margin-top: 23px;
+      }
+
+      .music-button {
+        width: 46px;
+        height: 46px;
+        right: 17px;
+        bottom: 17px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .birthday-card {
+        padding-left: 13px;
+        padding-right: 13px;
+      }
+
+      .countdown {
+        gap: 2px;
+      }
+
+      .time-box strong {
+        font-size: 33px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated background -->
+  <div id="stars" aria-hidden="true"></div>
+
+  <!-- Birthday section -->
+  <main class="section">
+    <section class="birthday-card" aria-label="Heet's birthday countdown">
+
+      <div class="cake" aria-hidden="true">🎂</div>
+
+      <p class="eyebrow">The countdown to your day</p>
+
+      <h1>16 October</h1>
+
+      <p class="birth-year">2006</p>
+
+      <p class="description">
+        The day the world got Heet.<br>
+        Lucky me that our paths crossed years later.
+      </p>
+
+      <div class="divider" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <div class="divider-heart">♡</div>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="countdown" id="countdown" aria-label="Time remaining">
+
+        <div class="time-box">
+          <strong id="days">00</strong>
+          <small>Days</small>
+        </div>
+
+        <div class="time-box">
+          <strong id="hours">00</strong>
+          <small>Hours</small>
+        </div>
+
+        <div class="time-box">
+          <strong id="minutes">00</strong>
+          <small>Minutes</small>
+        </div>
+
+        <div class="time-box">
+          <strong id="seconds">00</strong>
+          <small>Seconds</small>
+        </div>
+
+      </div>
+
+      <p id="birthdayMessage"
+         class="birthday-message"
+         aria-live="polite">
+        Until your birthday, every second is one second closer to celebrating you. ♡
+      </p>
+
+      <div class="bottom-sparkle" aria-hidden="true">✦</div>
+
+    </section>
+  </main>
+
+  <!-- Music button -->
+  <button class="music-button"
+          id="musicButton"
+          type="button"
+          aria-label="Play background music"
+          title="Play music">
+    ♫
+  </button>
+
+  <!--
+    Optional music:
+    Put your music file in the same folder as index.html
+    and name it birthday-music.mp3.
+  -->
+  <audio id="birthdayMusic"
+         src="birthday-music.mp3"
+         loop
+         preload="none"></audio>
+
+  <script>
+    // ----------------------------------
+    // 1. Birthday countdown
+    // ----------------------------------
+
+    const birthdayMonth = 9; // October (January = 0)
+    const birthdayDate = 16;
+
+    const daysElement = document.getElementById("days");
+    const hoursElement = document.getElementById("hours");
+    const minutesElement = document.getElementById("minutes");
+    const secondsElement = document.getElementById("seconds");
+    const messageElement = document.getElementById("birthdayMessage");
+
+    let lastBirthdayYear = null;
+
+    function updateCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+
+      const birthdayStart = new Date(
+        year, birthdayMonth, birthdayDate, 0, 0, 0
+      );
+
+      const birthdayEnd = new Date(
+        year, birthdayMonth, birthdayDate + 1, 0, 0, 0
+      );
+
+      const isBirthday =
+        now >= birthdayStart && now < birthdayEnd;
+
+      let target;
+
+      if (isBirthday) {
+        // On October 16, count down to the end of the birthday day.
+        target = birthdayEnd;
+      } else if (now < birthdayStart) {
+        target = birthdayStart;
+      } else {
+        // The birthday has passed: target next year's birthday.
+        target = new Date(
+          year + 1, birthdayMonth, birthdayDate, 0, 0, 0
+        );
+      }
+
+      const difference = Math.max(0, target.getTime() - now.getTime());
+
+      const days = Math.floor(difference / 86400000);
+      const hours = Math.floor((difference % 86400000) / 3600000);
+      const minutes = Math.floor((difference % 3600000) / 60000);
+      const seconds = Math.floor((difference % 60000) / 1000);
+
+      daysElement.textContent = String(days).padStart(2, "0");
+      hoursElement.textContent = String(hours).padStart(2, "0");
+      minutesElement.textContent = String(minutes).padStart(2, "0");
+      secondsElement.textContent = String(seconds).padStart(2, "0");
+
+      if (isBirthday) {
+        messageElement.textContent =
+          "IT'S YOUR DAY, HEET. HAPPY BIRTHDAY, MY LOVE! 🎂❤️";
+
+        document.body.classList.add("celebrating");
+
+        if (lastBirthdayYear !== year) {
+          lastBirthdayYear = year;
+          launchConfetti();
+        }
+      } else {
+        messageElement.textContent =
+          "Until your birthday, every second is one second closer to celebrating you. ♡";
+
+        document.body.classList.remove("celebrating");
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+
+    // ----------------------------------
+    // 2. Twinkling stars and hearts
+    // ----------------------------------
+
+    const starsContainer = document.getElementById("stars");
+
+    const symbols = [
+      { symbol: "♡", className: "heart" },
+      { symbol: "✦", className: "sparkle" },
+      { symbol: "✧", className: "sparkle" }
+    ];
+
+    for (let i = 0; i < 48; i++) {
+      const star = document.createElement("span");
+
+      if (i % 3 === 0) {
+        const item = symbols[Math.floor(Math.random() * symbols.length)];
+        star.textContent = item.symbol;
+        star.classList.add("star", item.className);
+      } else {
+        star.classList.add("star", "dot");
+      }
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.animationDelay = Math.random() * 4 + "s";
+      star.style.animationDuration = 2 + Math.random() * 4 + "s";
+
+      starsContainer.appendChild(star);
+    }
+
+
+    // ----------------------------------
+    // 3. Birthday confetti
+    // ----------------------------------
+
+    let confettiStarted = false;
+
+    function launchConfetti() {
+      if (confettiStarted) return;
+      confettiStarted = true;
+
+      const colors = ["#ff78a6", "#ffc0d3", "#fff0e8", "#dca0c0"];
+
+      for (let i = 0; i < 90; i++) {
+        const piece = document.createElement("span");
+
+        piece.className = "confetti";
+        piece.textContent = Math.random() > 0.5 ? "♥" : "✦";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.color =
+          colors[Math.floor(Math.random() * colors.length)];
+        piece.style.fontSize = 8 + Math.random() * 14 + "px";
+        piece.style.animationDuration = 3 + Math.random() * 4 + "s";
+        piece.style.animationDelay = Math.random() * 3 + "s";
+
+        document.body.appendChild(piece);
+
+        piece.addEventListener("animationend", () => {
+          piece.remove();
+        }, { once: true });
+      }
+
+      setTimeout(() => {
+        confettiStarted = false;
+      }, 10000);
+    }
+
+
+    // ----------------------------------
+    // 4. Background music button
+    // ----------------------------------
+
+    const music = document.getElementById("birthdayMusic");
+    const musicButton = document.getElementById("musicButton");
+
+    musicButton.addEventListener("click", async () => {
+      if (music.paused) {
+        try {
+          await music.play();
+
+          musicButton.classList.add("playing");
+          musicButton.textContent = "♫";
+          musicButton.title = "Pause music";
+          musicButton.setAttribute("aria-label", "Pause background music");
+        } catch (error) {
+          messageElement.textContent =
+            "Add birthday-music.mp3 to your website folder to play music. ♡";
+        }
+      } else {
+        music.pause();
+
+        musicButton.classList.remove("playing");
+        musicButton.textContent = "♫";
+        musicButton.title = "Play music";
+        musicButton.setAttribute("aria-label", "Play background music");
+      }
+    });
+  </script>
+
+</body>
+</html>
